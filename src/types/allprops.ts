@@ -14,13 +14,13 @@ export interface HeaderProps {
 }
 
 export interface TaskProp {
-  text: string
-  done: boolean
-  date: string
+    text: string
+    done: boolean
+    date: string
 }
 
 
 
- 
+
 
 
