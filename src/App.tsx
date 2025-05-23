@@ -20,21 +20,16 @@ export const App = () => {
   }, []);
 
   // Carregar tarefas do localStorage
-  useEffect(() => {
-    const user = localStorage.getItem("currentUser");
-    if (user) {
-      const data = JSON.parse(localStorage.getItem(user) || "{}");
-      setTasks(data.tasks || []);
-    }
-  }, []);
+ useEffect(() => {
+  const storedTasks = localStorage.getItem("tasks");
+  if (storedTasks) {
+    setTasks(JSON.parse(storedTasks));
+  }
+}, []);
 
-  const saveTasks = (updated: TaskProp[]) => {
-    const user = localStorage.getItem("currentUser");
-    if (user) {
-      const userData = JSON.parse(localStorage.getItem(user) || "{}");
-      localStorage.setItem(user, JSON.stringify({ ...userData, tasks: updated }));
-    }
-  };
+const saveTasks = (updated: TaskProp[]) => {
+  localStorage.setItem("tasks", JSON.stringify(updated));
+};
 
   const addTask = () => {
     if (!task.trim()) {
@@ -86,7 +81,7 @@ useEffect(() => {
           <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-l from-cyan-900 via-cyan-500 to-cyan-800 text-center">
             Bem-vindo ao <br className="md:hidden" /> Task Manager
           </h1>
-          <img src="./img/gear.png" alt="" className="animate-spin w-24 h-24 md:w-40 md:h-40" />
+          <img src="./img/gear.png" alt="" className="animate-spin duration-[4000ms] w-24 h-24 md:w-40 md:h-40" />
         </div>
 
         <section className="mt-8 max-w-2xl mx-auto">
@@ -115,7 +110,7 @@ useEffect(() => {
             {tasks.map((t, i) => (
               <li
                 key={i}
-                className="flex justify-between items-center bg-white p-3 rounded-xl shadow-md"
+                className="flex justify-between items-center bg-gradient-to-br from-blue-800 to-cyan-950 p-2 rounded-xl shadow-2xl font-bold animate-fade-in-up transition-transform duration-500"
               >
                 <span className="text-black font-medium">
                   {t.text}{" "}
@@ -130,7 +125,7 @@ useEffect(() => {
                   >
                     {t.done ? "✓" : "×"}
                   </button>
-                  <button onClick={() => removeTask(i)} className="text-red-700">
+                  <button onClick={() => removeTask(i)} className="text-red-700 transition-transform duration-300 hover:rotate-180">
                     <Trash />
                   </button>
                 </div>

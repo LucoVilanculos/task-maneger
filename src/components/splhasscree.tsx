@@ -4,7 +4,7 @@ export const SplashScreen = () => {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setFadeOut(true), 4500);
+    const timer = setTimeout(() => setFadeOut(true), 7000);
     return () => clearTimeout(timer);
   }, []);
 
